@@ -70,7 +70,7 @@ impl LogExporter for TonicLogsClient {
             None => return Err(OTelSdkError::AlreadyShutdown),
         };
 
-        let resource_logs = group_logs_by_resource_and_scope(batch, &self.resource);
+        let resource_logs = group_logs_by_resource_and_scope(&batch, &self.resource);
 
         otel_debug!(name: "TonicLogsClient.ExportStarted");
 
