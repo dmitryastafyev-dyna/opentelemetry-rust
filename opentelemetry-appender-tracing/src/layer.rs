@@ -203,6 +203,17 @@ where
             _phantom: Default::default(),
         }
     }
+
+    /// Creates a tracing bridge that emits logs with the provided instrumentation scope.
+    ///
+    /// This can be used when the caller needs scope attributes (for example invocation metadata)
+    /// to be present in exported `ScopeLogs.scope.attributes`.
+    pub fn new_with_scope(provider: &P, scope: opentelemetry::InstrumentationScope) -> Self {
+        OpenTelemetryTracingBridge {
+            logger: provider.logger_with_scope(scope),
+            _phantom: Default::default(),
+        }
+    }
 }
 
 impl<S, P, L> Layer<S> for OpenTelemetryTracingBridge<P, L>
